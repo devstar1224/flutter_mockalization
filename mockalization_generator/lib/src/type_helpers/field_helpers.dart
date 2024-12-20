@@ -8,8 +8,6 @@ import 'package:analyzer/src/dart/element/inheritance_manager3.dart' // ignore: 
         InheritanceManager3;
 import 'package:source_gen/source_gen.dart';
 
-import '../utils.dart';
-
 class _FieldSet implements Comparable<_FieldSet> {
   final FieldElement field;
   final FieldElement sortField;
@@ -21,15 +19,7 @@ class _FieldSet implements Comparable<_FieldSet> {
     // At least one of these will != null, perhaps both.
     final fields = [classField, superField].whereType<FieldElement>().toList();
 
-    // Prefer the class field over the inherited field when sorting.
-    final sortField = fields.first;
-
-    // Prefer the field that's annotated with `JsonKey`, if any.
-    // If not, use the class field.
-    final fieldHasJsonKey =
-        fields.firstWhere(hasJsonKeyAnnotation, orElse: () => fields.first);
-
-    return _FieldSet._(fieldHasJsonKey, sortField);
+    return _FieldSet._(fields.first, fields.first);
   }
 
   @override
