@@ -1,0 +1,3 @@
+class MockIgnore {
+  const MockIgnore();
+}

@@ -1,0 +1,7 @@
+name: mockalization_workspace
+environment:
+  sdk: ^3.5.0
+workspace:
+  - example
+  - mockalization_factory
+  - mockalization_generator
