@@ -1,4 +1,7 @@
-name: flutter_mockalization_workspace
-
+name: mockalization
 environment:
   sdk: '>=3.4.4 <4.0.0'
+workspace:
+  - example
+  - mockalization_factory
+  - mockalization_generator
