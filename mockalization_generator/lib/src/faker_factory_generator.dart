@@ -4,6 +4,7 @@ import 'package:analyzer/dart/element/visitor.dart';
 import 'package:build/build.dart';
 import 'package:build/src/builder/build_step.dart';
 import 'package:mockalization_factory/mockalization_factory.dart';
+import 'package:mockalization_generator/src/type_helpers/field_helpers.dart';
 import 'package:source_gen/source_gen.dart';
 import 'package:source_helper/source_helper.dart';
 
@@ -23,11 +24,7 @@ class FakerFactoryGenerator extends GeneratorForAnnotation<Mockalization> {
     final content = StringBuffer();
 
     Map<String, String> fields = {};
-
-    List<FieldElement> allFieldElements = [];
-    allFieldElements.addAll(element.fields);
-    allFieldElements.addAll(_collectSuperElements(element));
-    for (FieldElement field in allFieldElements) {
+    for (FieldElement field in createSortedFieldSet(element)) {
       int? mockPropertyAnnotationLength;
       DartType? mockPropertyAnnotationType;
 
@@ -89,27 +86,6 @@ class FakerFactoryGenerator extends GeneratorForAnnotation<Mockalization> {
     ''');
 
     return content.toString();
-  }
-
-  List<FieldElement> _collectSuperElements(ClassElement element) {
-    if (element.supertype == null) {
-      return [];
-    }
-    final ModelVisitor visitor = ModelVisitor();
-    element.supertype!.element.visitChildren(visitor);
-    if (visitor.fieldElements.length == 2) {
-      return [];
-    }
-
-    List<FieldElement> fields = [];
-    if (element.supertype!.element.supertype != null) {
-      fields.addAll(
-          _collectSuperElements(element.supertype!.element as ClassElement));
-    }
-
-    element.supertype!.element.visitChildren(visitor);
-    fields.addAll(visitor.fieldElements);
-    return fields;
   }
 }
 
