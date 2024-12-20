@@ -1,6 +1,5 @@
-name: mockalization_workspace
 environment:
-  sdk: ^3.5.0
+  sdk: '>=3.4.4 <4.0.0'
 workspace:
   - example
   - mockalization_factory
