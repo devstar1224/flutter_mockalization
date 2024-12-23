@@ -20,7 +20,7 @@ To generate `g.dart` files using the generator in your library, you can follow t
 
    part 'my_class.g.dart';
 
-   @Mockalize()
+   @Mockalization()
    class MyClass {
      final String name;
      final int age;
