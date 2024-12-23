@@ -25,7 +25,7 @@ To generate `g.dart` files using the generator in your library, you can follow t
      final String name;
      final int age;
 
-     MyClass(this.name, this.age);
+     MyClass({required this.name, required this.age});
    }
    ```
 
