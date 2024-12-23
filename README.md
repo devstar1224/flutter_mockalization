@@ -34,4 +34,20 @@ To generate `g.dart` files using the generator in your library, you can follow t
    flutter pub run build_runner build
    ```
 
+   Generated `g.dart` file
+
+   ```dart
+   part of 'my_class.dart';
+   
+   class MyClassMockFactory with MockFactory<MyClass> {
+     @override
+     MyClass generateFake() {
+       return MyClass(
+         name: faker.randomGenerator.string(10),
+         age: faker.randomGenerator.integer(9999),
+       );
+     }
+   }
+   ```
+
    This will generate the necessary `g.dart` files for your annotated classes.
