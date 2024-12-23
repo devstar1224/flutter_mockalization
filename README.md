@@ -33,7 +33,7 @@ To generate `g.dart` files using the generator in your library, you can follow t
    Use the following command to generate the `g.dart` files:
 
    ```bash
-   flutter pub run build_runner build
+   dart run build_runner build --delete-conflicting-outputs  
    ```
 
    Generated `g.dart` file
