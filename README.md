@@ -1,16 +1,37 @@
-# mockalization
+To generate `g.dart` files using the generator in your library, you can follow these steps:
 
-mockalization
+1. **Add Dependencies**:
+   Ensure you have the necessary dependencies in your `pubspec.yaml` file:
 
-## Getting Started
+   ```yaml
+   dependencies:
+     mockalization_factory:
+   
+   dev_dependencies:
+     build_runner:
+     mockalization_generator:
+   ```
 
-This project is a starting point for a Flutter application.
+2. **Annotate Your Data Classes**:
+   Use the annotations from `mockalization_factory` in your data classes.
 
-A few resources to get you started if this is your first Flutter project:
+   ```dart
+   import 'package:mockalization_factory/mockalization_factory.dart';
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+   @Mockalize()
+   class MyClass {
+     final String name;
+     final int age;
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+     MyClass(this.name, this.age);
+   }
+   ```
+
+3. **Run the Generator**:
+   Use the following command to generate the `g.dart` files:
+
+   ```bash
+   flutter pub run build_runner build
+   ```
+
+   This will generate the necessary `g.dart` files for your annotated classes.
