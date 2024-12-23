@@ -18,6 +18,8 @@ To generate `g.dart` files using the generator in your library, you can follow t
    ```dart
    import 'package:mockalization_factory/mockalization_factory.dart';
 
+   part 'my_class.g.dart';
+
    @Mockalize()
    class MyClass {
      final String name;
