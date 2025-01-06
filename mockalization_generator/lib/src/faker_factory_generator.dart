@@ -12,7 +12,7 @@ class FakerFactoryGenerator extends GeneratorForAnnotation<Mockalization> {
   final _mockPropertyChecker = const TypeChecker.fromRuntime(MockProperty);
   final _mockIgnoreChecker = const TypeChecker.fromRuntime(MockIgnore);
   final _dateTimeChecker = const TypeChecker.fromRuntime(DateTime);
-  final _coreListChecker = TypeChecker.fromUrl('dart:core#List');
+  final _coreListChecker = const TypeChecker.fromUrl('dart:core#List');
 
   @override
   generateForAnnotatedElement(
