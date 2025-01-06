@@ -1,3 +1,4 @@
+import 'package:analyzer/dart/constant/value.dart';
 import 'package:analyzer/dart/element/element.dart';
 import 'package:analyzer/dart/element/type.dart';
 import 'package:analyzer/dart/element/visitor.dart';
@@ -27,6 +28,7 @@ class FakerFactoryGenerator extends GeneratorForAnnotation<Mockalization> {
     for (FieldElement field in createSortedFieldSet(element)) {
       int? mockPropertyAnnotationLength;
       DartType? mockPropertyAnnotationType;
+      DartObject? mockPropertyAnnotationValue;
 
       if (_mockIgnoreChecker.hasAnnotationOfExact(field)) {
         continue;
@@ -40,9 +42,17 @@ class FakerFactoryGenerator extends GeneratorForAnnotation<Mockalization> {
             .firstAnnotationOfExact(field)!
             .getField("formatType")
             ?.toTypeValue();
+        mockPropertyAnnotationValue = _mockPropertyChecker
+            .firstAnnotationOfExact(field)!
+            .getField("value");
       }
+
       if (field.type.isDartCoreString) {
-        if (mockPropertyAnnotationType != null &&
+        if (mockPropertyAnnotationValue != null &&
+            mockPropertyAnnotationValue.toStringValue() != null) {
+          fields[field.name] =
+              "\"${mockPropertyAnnotationValue.toStringValue()!}\"";
+        } else if (mockPropertyAnnotationType != null &&
             _dateTimeChecker.isExactlyType(mockPropertyAnnotationType)) {
           fields[field.name] = "faker.date.dateTime().toString()";
         } else {
@@ -65,6 +75,26 @@ class FakerFactoryGenerator extends GeneratorForAnnotation<Mockalization> {
       } else {
         fields[field.name] =
             "${field.type.getDisplayString(withNullability: false)}MockFactory().generateFake()";
+      }
+
+      if (mockPropertyAnnotationValue != null) {
+        if (mockPropertyAnnotationValue.toStringValue() != null) {
+          fields[field.name] =
+              "\"${mockPropertyAnnotationValue.toStringValue()!}\"";
+        } else if (mockPropertyAnnotationValue.toListValue() != null) {
+          List<String?> valueList = [];
+          for (DartObject value in mockPropertyAnnotationValue.toListValue()!) {
+            if (value.toStringValue() != null) {
+              valueList.add("\"${value.toStringValue()}\"");
+            } else if (value.toIntValue() != null) {
+              valueList.add("${value.toIntValue()}");
+            } else if (value.toBoolValue() != null) {
+              valueList.add("${value.toBoolValue()}");
+            }
+          }
+          fields[field.name] =
+              "faker.randomGenerator.element(${valueList.toString()})";
+        }
       }
     }
 
