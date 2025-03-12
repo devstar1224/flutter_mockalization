@@ -1,9 +1,7 @@
-import 'package:analyzer/dart/element/element.dart';
 import 'package:mockalization_generator/src/fake_helper.dart';
 
 class ObjectHelper extends FakeHelper {
-  ObjectHelper({required FieldElement fieldElement})
-      : super(fieldElement: fieldElement);
+  ObjectHelper({required super.fieldElement});
 
   @override
   String toFake() {

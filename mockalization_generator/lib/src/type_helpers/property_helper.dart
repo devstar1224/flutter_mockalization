@@ -1,5 +1,4 @@
 import 'package:analyzer/dart/constant/value.dart';
-import 'package:analyzer/dart/element/element.dart';
 import 'package:mockalization_generator/src/fake_helper.dart';
 
 class PropertyHelper extends FakeHelper {

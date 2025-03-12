@@ -1,6 +1,5 @@
 import 'package:analyzer/dart/constant/value.dart';
 import 'package:analyzer/dart/element/element.dart';
-import 'package:analyzer/dart/element/type.dart';
 import 'package:mockalization_generator/src/type_helpers/type_checker.dart';
 
 abstract class FakeHelper {
@@ -20,8 +19,7 @@ abstract class FakeHelper {
           ?.toIntValue();
       mockPropertyAnnotationType = kMockPropertyChecker
           .firstAnnotationOfExact(fieldElement)!
-          .getField("formatType")
-          ?.toTypeValue();
+          .getField("formatType");
       mockPropertyAnnotationValue = kMockPropertyChecker
           .firstAnnotationOfExact(fieldElement)!
           .getField("value");
@@ -34,7 +32,7 @@ abstract class FakeHelper {
 
   int? mockPropertyAnnotationMin;
 
-  DartType? mockPropertyAnnotationType;
+  DartObject? mockPropertyAnnotationType;
 
   DartObject? mockPropertyAnnotationValue;
 
