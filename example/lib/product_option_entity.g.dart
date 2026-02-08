@@ -3,16 +3,21 @@
 part of 'product_option_entity.dart';
 
 // **************************************************************************
-// FakerFactoryGenerator
+// MockalizationGenerator
 // **************************************************************************
 
-class ProductOptionEntityMockFactory with MockFactory<ProductOptionEntity> {
-  @override
-  ProductOptionEntity generateFake() {
+extension ProductOptionEntityMock on ProductOptionEntity {
+  static ProductOptionEntity fake() {
+    final faker = Faker();
     return ProductOptionEntity(
-      optionId: faker.randomGenerator.integer(9999),
-      optionName: faker.randomGenerator.string(10),
+      optionId: faker.randomGenerator.integer(9999, min: 0),
+      optionName: faker.lorem.word(),
       createdAt: faker.date.dateTime(),
+      price: mockDouble(min: 100.0, max: 50000.0),
     );
+  }
+
+  static List<ProductOptionEntity> fakeList(int length) {
+    return List.generate(length, (_) => fake());
   }
 }

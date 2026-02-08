@@ -5,16 +5,19 @@ part 'product_option_entity.g.dart';
 @Mockalization()
 class ProductOptionEntity {
   final int optionId;
+
+  @MockProperty(format: MockFormat.word)
   final String optionName;
+
   final DateTime createdAt;
 
-  @MockIgnore()
-  final int price;
+  @MockProperty(min: 100, max: 50000)
+  final double price;
 
   ProductOptionEntity({
     required this.optionId,
     required this.optionName,
     required this.createdAt,
-    this.price = 0,
+    required this.price,
   });
 }
