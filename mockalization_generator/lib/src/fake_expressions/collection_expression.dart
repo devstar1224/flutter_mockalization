@@ -37,7 +37,7 @@ class CollectionExpression {
   }
 
   /// Recursively generates an expression for a type argument.
-  /// Handles nested collections like List<List<String>> or Map<String, List<int>>.
+  /// Handles nested collections like `List<List<String>>` or `Map<String, List<int>>`.
   static String innerExpression(DartType type, {int depth = 0}) {
     // Prevent infinite recursion
     if (depth > 5) return 'null';
