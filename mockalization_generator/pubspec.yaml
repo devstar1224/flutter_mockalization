@@ -1,6 +1,6 @@
 name: mockalization_generator
 description: "Code generator for mockalization. Analyzes @Mockalization-annotated classes and generates extension-based mock data factories with build_runner."
-version: 2.0.1
+version: 2.0.2
 homepage: https://github.com/devstar1224/flutter_mockalization
 repository: https://github.com/devstar1224/flutter_mockalization
 issue_tracker: https://github.com/devstar1224/flutter_mockalization/issues

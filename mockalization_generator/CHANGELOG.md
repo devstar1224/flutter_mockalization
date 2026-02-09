@@ -1,3 +1,8 @@
+## 2.0.2
+
+- Lowered `analyzer` constraint from `^10.0.0` to `>=8.1.1 <11.0.0` for wider compatibility
+- Lowered SDK constraint from `^3.9.0` to `^3.7.0`
+
 ## 2.0.1
 
 - Upgraded dependencies to latest stable versions: `analyzer: >=8.1.1 <11.0.0`, `build: ^4.0.0`, `source_gen: ^4.0.0`

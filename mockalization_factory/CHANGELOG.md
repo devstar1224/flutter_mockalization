@@ -1,3 +1,7 @@
+## 2.0.2
+
+- Lowered SDK constraint from `^3.9.0` to `^3.7.0` for wider compatibility
+
 ## 2.0.1
 
 - Shortened package description for pub.dev compliance (max 180 characters)
