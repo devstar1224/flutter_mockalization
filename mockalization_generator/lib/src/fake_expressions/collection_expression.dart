@@ -95,13 +95,13 @@ class CollectionExpression {
 
     // Enum
     if (type.element is EnumElement) {
-      final enumName = (type.element as EnumElement).name;
+      final enumName = (type.element as EnumElement).name!;
       return 'faker.randomGenerator.element($enumName.values)';
     }
 
     // Custom class with @Mockalization
     if (type.element is ClassElement) {
-      return '${type.element!.name}Mock.fake()';
+      return '${type.element!.name!}Mock.fake()';
     }
 
     // Dynamic or Object

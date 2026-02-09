@@ -18,9 +18,9 @@ class FieldCollector {
   }) {
     final results = <FieldContext>[];
 
-    for (final param in constructor.parameters) {
+    for (final param in constructor.formalParameters) {
       // Find matching field in class or superclasses for annotation reading
-      final field = _findField(classElement, param.name);
+      final field = _findField(classElement, param.name!);
 
       // Check @MockIgnore on the field
       if (field != null && AnnotationReader.hasIgnore(field)) {
@@ -44,7 +44,7 @@ class FieldCollector {
           : AnnotationReader.readMockProperty(param);
 
       results.add(FieldContext(
-        parameterName: param.name,
+        parameterName: param.name!,
         dartType: param.type,
         isNullable:
             param.type.nullabilitySuffix == NullabilitySuffix.question,
@@ -73,7 +73,7 @@ class FieldCollector {
     if (supertype != null) {
       final superElement = supertype.element;
       if (superElement is ClassElement &&
-          superElement.name != 'Object') {
+          superElement.name! != 'Object') {
         final found = _findField(superElement, name);
         if (found != null) return found;
       }
@@ -103,7 +103,7 @@ class FieldCollector {
       final ctor = classElement.unnamedConstructor;
       if (ctor == null) {
         throw Exception(
-          '@Mockalization: Class "${classElement.name}" has no default constructor.',
+          '@Mockalization: Class "${classElement.name!}" has no default constructor.',
         );
       }
       return ctor;
@@ -112,7 +112,7 @@ class FieldCollector {
     final ctor = classElement.getNamedConstructor(constructorName);
     if (ctor == null) {
       throw Exception(
-        '@Mockalization: Class "${classElement.name}" has no constructor '
+        '@Mockalization: Class "${classElement.name!}" has no constructor '
         'named "$constructorName".',
       );
     }
