@@ -39,17 +39,11 @@ Add the following to your `pubspec.yaml`:
 
 ```yaml
 dependencies:
-  mockalization_factory:
-    git:
-      url: https://github.com/devstar1224/flutter_mockalization.git
-      path: mockalization_factory
+  mockalization_factory: ^2.0.0
 
 dev_dependencies:
   build_runner: ^2.4.11
-  mockalization_generator:
-    git:
-      url: https://github.com/devstar1224/flutter_mockalization.git
-      path: mockalization_generator
+  mockalization_generator: ^2.0.0
 ```
 
 ## Getting Started
