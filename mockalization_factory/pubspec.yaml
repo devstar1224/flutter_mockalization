@@ -1,5 +1,5 @@
 name: mockalization_factory
-description: "Annotation-based mock data generator for Dart. Define @Mockalization on classes to auto-generate realistic fake data factories with support for nullable types, collections, and 33+ data formats."
+description: "Annotation-based mock data generator for Dart. Add @Mockalization to classes to auto-generate realistic fake data with nullable, collection, and format support."
 version: 2.0.0
 homepage: https://github.com/devstar1224/flutter_mockalization
 repository: https://github.com/devstar1224/flutter_mockalization
