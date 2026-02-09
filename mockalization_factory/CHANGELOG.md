@@ -1,3 +1,8 @@
+## 2.0.1
+
+- Shortened package description for pub.dev compliance (max 180 characters)
+- Added example file for pub.dev documentation score
+
 ## 2.0.0
 
 - **BREAKING**: Replaced `MockFactory` mixin with extension-based API (`UserMock.fake()`, `UserMock.fakeList()`)

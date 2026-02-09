@@ -1,3 +1,11 @@
+## 2.0.1
+
+- Upgraded dependencies to latest stable versions: `analyzer: ^10.0.0`, `build: ^4.0.0`, `source_gen: ^4.0.0`
+- Migrated from `TypeChecker.fromRuntime` to `TypeChecker.fromUrl` (source_gen 4.x breaking change)
+- Migrated from `ParameterElement` to `FormalParameterElement` (analyzer 10.x breaking change)
+- Added dartdoc comments to public API (`builder.dart`)
+- Added example file for pub.dev documentation score
+
 ## 2.0.0
 
 - **BREAKING**: Complete rewrite of code generation engine

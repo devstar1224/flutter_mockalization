@@ -23,8 +23,8 @@ class FieldContext {
   /// The FieldElement for reading annotations (may be null for computed params).
   final FieldElement? fieldElement;
 
-  /// The ParameterElement from the constructor.
-  final ParameterElement parameterElement;
+  /// The FormalParameterElement from the constructor.
+  final FormalParameterElement parameterElement;
 
   /// Parsed MockProperty annotation config, if present.
   final MockPropertyConfig? mockPropertyConfig;

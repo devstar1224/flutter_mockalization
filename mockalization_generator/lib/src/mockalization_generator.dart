@@ -57,7 +57,7 @@ class MockalizationGenerator extends GeneratorForAnnotation<Mockalization> {
 
     // 4. Build the extension code
     return CodeBuilder.buildExtension(
-      className: classElement.name,
+      className: classElement.name!,
       constructorName: constructorName,
       fieldExpressions: fieldExpressions,
       needsUuidImport: needsUuidImport,

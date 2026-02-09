@@ -116,7 +116,7 @@ class FakeExpressionFactory {
     }
 
     throw InvalidGenerationSourceError(
-      'Unsupported type: ${type.getDisplayString(withNullability: true)} '
+      'Unsupported type: ${type.getDisplayString()} '
       'for field "${ctx.parameterName}".',
       element: ctx.parameterElement,
     );
