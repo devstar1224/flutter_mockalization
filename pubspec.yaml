@@ -1,6 +1,7 @@
 name: mockalization
 description: "Annotation-based mock data generator for Dart"
 version: 2.0.0
+publish_to: 'none'
 
 environment:
   sdk: '^3.6.0'
