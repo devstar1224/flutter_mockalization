@@ -1,6 +1,6 @@
 # Mockalization
 
-Dart 클래스에 어노테이션을 붙이면 자동으로 목(mock) 데이터 팩토리를 생성해주는 코드 제너레이터입니다.
+A Dart code generator that automatically creates mock data factories from annotated classes. Just add `@Mockalization()` and get realistic fake data instantly.
 
 ```dart
 @Mockalization()
@@ -26,16 +26,16 @@ class User {
   });
 }
 
-// 사용
+// Usage
 final user = UserMock.fake();
 final users = UserMock.fakeList(10);
 ```
 
 ---
 
-## 설치
+## Installation
 
-`pubspec.yaml`에 다음을 추가합니다:
+Add the following to your `pubspec.yaml`:
 
 ```yaml
 dependencies:
@@ -52,9 +52,9 @@ dev_dependencies:
       path: mockalization_generator
 ```
 
-## 사용법
+## Getting Started
 
-### 1. 클래스에 어노테이션 추가
+### 1. Annotate your class
 
 ```dart
 import 'package:mockalization_factory/mockalization_factory.dart';
@@ -69,20 +69,20 @@ class User {
 }
 ```
 
-### 2. 코드 생성 실행
+### 2. Run the code generator
 
 ```bash
 dart run build_runner build --delete-conflicting-outputs
 ```
 
-### 3. 생성된 코드 사용
+### 3. Use the generated mock factory
 
 ```dart
-final user = UserMock.fake();           // 단건 생성
-final users = UserMock.fakeList(10);    // 리스트 생성
+final user = UserMock.fake();           // Single instance
+final users = UserMock.fakeList(10);    // List of instances
 ```
 
-생성된 코드 예시:
+Generated code:
 
 ```dart
 extension UserMock on User {
@@ -102,85 +102,85 @@ extension UserMock on User {
 
 ---
 
-## 지원 타입
+## Supported Types
 
-| 분류 | 타입 |
+| Category | Types |
 |---|---|
 | Primitive | `String`, `int`, `double`, `bool`, `num` |
 | Date | `DateTime` |
-| Collections | `List<T>`, `Set<T>`, `Map<K,V>` (중첩 지원) |
-| Enum | 모든 enum 타입 |
-| Class | `@Mockalization` 어노테이션이 붙은 클래스 |
+| Collections | `List<T>`, `Set<T>`, `Map<K,V>` (nested generics supported) |
+| Enum | Any enum type |
+| Class | Classes annotated with `@Mockalization` |
 | Special | `BigInt`, `Duration`, `Uri`, `Uint8List`, `dynamic` |
-| Nullable | 위 모든 타입의 nullable 버전 (`String?`, `int?` 등) |
+| Nullable | All of the above with `?` suffix (`String?`, `int?`, etc.) |
 
 ---
 
-## 어노테이션
+## Annotations
 
 ### `@Mockalization()`
 
-클래스에 붙이면 목 데이터 생성 extension이 만들어집니다.
+Marks a class for mock data generation. An extension with static `fake()` and `fakeList()` methods will be generated.
 
 ```dart
 @Mockalization()
 class Product { ... }
 
-// named constructor 지정 가능
+// Use a named constructor
 @Mockalization(constructor: 'fromJson')
 class Product { ... }
 ```
 
 ### `@MockProperty()`
 
-필드별로 생성 규칙을 지정합니다.
+Configures how a specific field is generated.
 
 ```dart
 @Mockalization()
 class Product {
-  // 숫자 범위 지정
+  // Numeric range
   @MockProperty(min: 1000, max: 50000)
   final int price;
 
-  // 문자열/컬렉션 길이 지정
+  // String/collection length
   @MockProperty(length: 5)
   final List<String> tags;
 
-  // MockFormat으로 현실적 데이터 생성
+  // Realistic data via MockFormat
   @MockProperty(format: MockFormat.email)
   final String email;
 
-  // 고정 값
+  // Fixed value
   @MockProperty(value: 'admin')
   final String role;
 
-  // 선택 목록에서 랜덤
+  // Random pick from list
   @MockProperty(values: ['active', 'inactive', 'pending'])
   final String status;
 
-  // nullable 필드의 null 생성 확률 (기본 0.3 = 30%)
+  // Control null probability for nullable fields (default: 0.3)
   @MockProperty(nullProbability: 0.5)
   final String? nickname;
 }
 ```
 
-**모든 옵션:**
+**All options:**
 
-| 옵션 | 타입 | 설명 |
+| Option | Type | Description |
 |---|---|---|
-| `value` | `Object?` | 항상 이 값을 사용 |
-| `values` | `List<Object>?` | 목록에서 랜덤 선택 |
-| `format` | `MockFormat?` | 현실적 데이터 포맷 |
-| `min` | `num?` | 숫자 최솟값 |
-| `max` | `num?` | 숫자 최댓값 |
-| `length` | `int?` | 문자열/컬렉션 길이 |
-| `minLength` | `int?` | 최소 길이 |
-| `maxLength` | `int?` | 최대 길이 |
-| `nullProbability` | `double?` | null 생성 확률 (0.0~1.0, 기본 0.3) |
+| `value` | `Object?` | Always use this fixed value |
+| `values` | `List<Object>?` | Randomly pick from this list |
+| `format` | `MockFormat?` | Realistic data format |
+| `min` | `num?` | Minimum value for numeric types |
+| `max` | `num?` | Maximum value for numeric types |
+| `length` | `int?` | Length for strings or collections |
+| `minLength` | `int?` | Minimum length |
+| `maxLength` | `int?` | Maximum length |
+| `nullProbability` | `double?` | Probability of generating null (0.0-1.0, default 0.3) |
 
 ### `@MockIgnore()`
 
-필드를 목 데이터 생성에서 제외합니다. 해당 생성자 파라미터에 기본값이 있거나 optional이어야 합니다.
+Excludes a field from mock generation. The corresponding constructor parameter must have a default value or be optional.
 
 ```dart
 @Mockalization()
@@ -198,9 +198,9 @@ class Product {
 
 ## MockFormat
 
-`@MockProperty(format: ...)` 에 사용 가능한 포맷 목록입니다.
+Available formats for `@MockProperty(format: ...)`:
 
-| 분류 | 포맷 | 예시 출력 |
+| Category | Formats | Example Output |
 |---|---|---|
 | **Person** | `firstName`, `lastName`, `fullName` | `John`, `Doe`, `John Doe` |
 | **Internet** | `email`, `url`, `ipv4`, `ipv6`, `userName`, `password`, `userAgent`, `domainName` | `john@example.com`, `https://example.com` |
@@ -208,18 +208,18 @@ class Product {
 | **Phone** | `phoneNumber` | `+1-555-123-4567` |
 | **Company** | `companyName`, `companySuffix` | `Acme Corp`, `LLC` |
 | **Lorem** | `word`, `sentence`, `paragraph` | `lorem`, `Lorem ipsum dolor sit.` |
-| **Date** | `dateTime`, `past`, `future` | ISO 8601 문자열 |
+| **Date** | `dateTime`, `past`, `future` | ISO 8601 string |
 | **Color** | `hexColor`, `colorName` | `#FF5733`, `blue` |
 | **Finance** | `creditCard`, `currencyCode`, `currencyName` | `4111111111111111`, `KRW` |
 | **Misc** | `uuid`, `barcode` | `550e8400-e29b-...`, `1234567890123` |
 
 ---
 
-## 고급 사용법
+## Advanced Usage
 
-### 상속 지원
+### Inheritance
 
-부모 클래스의 필드도 자동으로 포함됩니다.
+Parent class fields are automatically included.
 
 ```dart
 @Mockalization()
@@ -239,13 +239,13 @@ class SalesProductEntity extends ProductEntity {
   });
 }
 
-// 부모 필드 포함하여 생성
+// Generates all fields including parent's
 final sale = SalesProductEntityMock.fake();
 ```
 
-### 중첩 클래스
+### Nested Classes
 
-`@Mockalization`이 붙은 다른 클래스를 필드로 사용하면 자동으로 재귀 생성됩니다.
+Fields referencing other `@Mockalization`-annotated classes are generated recursively.
 
 ```dart
 @Mockalization()
@@ -255,13 +255,13 @@ class Order {
   Order({required this.user, required this.products});
 }
 
-// user와 products 모두 자동 생성
+// Both user and products are auto-generated
 final order = OrderMock.fake();
 ```
 
-### 중첩 컬렉션
+### Nested Collections
 
-`Map<String, List<int>>`, `List<Set<String>>` 같은 중첩 제네릭도 지원합니다.
+Deeply nested generics like `Map<String, List<int>>` or `List<Set<String>>` are fully supported.
 
 ```dart
 @Mockalization()
@@ -272,21 +272,20 @@ class Dashboard {
 }
 ```
 
-### Nullable 필드
+### Nullable Fields
 
-nullable 필드는 기본적으로 30% 확률로 null이 생성됩니다.
-`nullProbability`로 확률을 조절할 수 있습니다.
+Nullable fields randomly generate `null` or a value. The default null probability is 30%. Use `nullProbability` to customize.
 
 ```dart
 @Mockalization()
 class Profile {
   final String name;
 
-  // 50% 확률로 null
+  // 50% chance of null
   @MockProperty(nullProbability: 0.5)
   final String? bio;
 
-  // 10% 확률로 null (거의 항상 값 생성)
+  // 10% chance of null (almost always has a value)
   @MockProperty(nullProbability: 0.1)
   final String? avatar;
 
@@ -296,26 +295,26 @@ class Profile {
 
 ---
 
-## 프로젝트 구조
+## Project Structure
 
 ```
 flutter_mockalization/
-├── mockalization_factory/       # 어노테이션 및 런타임 유틸리티
+├── mockalization_factory/       # Annotations & runtime utilities
 │   └── lib/
-│       ├── mockalization_factory.dart    # 배럴 파일
+│       ├── mockalization_factory.dart    # Barrel file
 │       └── src/
 │           ├── annotations/             # @Mockalization, @MockProperty, @MockIgnore
 │           ├── mock_format.dart          # MockFormat enum
-│           └── mock_helpers.dart         # 런타임 헬퍼 함수
-├── mockalization_generator/     # 코드 생성기 (dev dependency)
+│           └── mock_helpers.dart         # Runtime helper functions
+├── mockalization_generator/     # Code generator (dev dependency)
 │   └── lib/
-│       ├── builder.dart                 # build_runner 진입점
+│       ├── builder.dart                 # build_runner entry point
 │       └── src/
-│           ├── mockalization_generator.dart  # 메인 제너레이터
-│           ├── field_collector.dart          # 생성자 파라미터 수집
-│           ├── annotation_reader.dart       # 어노테이션 파싱
-│           ├── fake_expression_factory.dart  # 타입별 분배기
-│           ├── code_builder.dart            # extension 코드 조립
-│           └── fake_expressions/            # 타입별 표현식 생성기
-└── example/                     # 사용 예제
+│           ├── mockalization_generator.dart  # Main generator
+│           ├── field_collector.dart          # Constructor parameter collection
+│           ├── annotation_reader.dart       # Annotation parsing
+│           ├── fake_expression_factory.dart  # Type dispatcher
+│           ├── code_builder.dart            # Extension code assembly
+│           └── fake_expressions/            # Per-type expression generators
+└── example/                     # Usage examples
 ```
