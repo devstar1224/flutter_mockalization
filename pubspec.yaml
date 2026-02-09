@@ -1,7 +1,6 @@
 name: mockalization
-description: "mockalization"
-
-version: 1.0.0+1
+description: "Annotation-based mock data generator for Dart"
+version: 2.0.0
 
 environment:
   sdk: '^3.6.0'
@@ -10,3 +9,6 @@ workspace:
   - example
   - mockalization_factory
   - mockalization_generator
+
+dev_dependencies:
+  lints: ^5.1.1
